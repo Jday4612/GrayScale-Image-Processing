@@ -29,7 +29,7 @@ void equalImage(); void addImage(); void subImage(); void mulImage(); void divIm
 void gammaImage(); void parabolaImage(); void histoStretch(); void endIn(); void histoEqual(); void posterizing(); void stressImage(); void morphing();
 void bwImage(); void bwAvgImage(); void bwMedImage(); void zoomIn1(); void zoomIn2(); void zoomInBilinear(); void zoomOut(); void zoomOutAvg(); void zoomOutMed();
 void mirrorVer(); void mirrorHor(); void rotate(); void rotate2(); void rotateZoomIn(); void rotateZoomInBilinear(); void move();
-void emboss(); void blur(); void blur2(); void sharp(); void sharpHf(); void sharpLf(); void gaussian();
+void emboss(); void blur(); void blur2(); void sharp(); void sharpHf(); void sharpLf(); void gaussian(); 
 void edgeVer(); void edgeHor(); void edgeHomogen(); void edgeDiff(); void edgeRoberts(); void edgePrewitt(); void edgeSobel(); void edgeLaplacian(); void edgeLoG(); void edgeDog();
 
 void main() {
@@ -894,18 +894,18 @@ void morphing() { // 모핑 알고리즘
 	// 입력 배열 --> 출력 배열
 	int tmp;
 	double u;
-
+	
 	for (int i = 0; i < inH; i++) {
 		for (int j = 0; j < inW; j++) {
 			u = ((i * inH) + (j + 1.0)) / (inH * inW);
 			tmp = (int)((1.0 - u) * inImage[i][j] + u * tmpImage[i][j]);
-
+			
 			if (255 < tmp)
 				outImage[i][j] = 255;
 			else if (tmp < 0)
 				outImage[i][j] = 0;
 			else
-				outImage[i][j] = (unsigned char)tmp;
+				outImage[i][j] = (unsigned char) tmp;
 		}
 	}
 
@@ -1043,7 +1043,7 @@ void rotate2() { // 회전 알고리즘 + 중앙/백워딩
 			xs += cx;
 			ys += cy;
 
-			if ((0 <= xs && xs < outH) && (0 <= ys && ys < outW))
+			if ((0 <= xs && xs < outH) && (0 <= ys && ys <= outW))
 				outImage[xd][yd] = inImage[xs][ys];
 		}
 	}
@@ -1096,7 +1096,7 @@ void rotateZoomIn() { // 회전(확대) 알고리즘
 			xs += cx;
 			ys += cy;
 
-			if ((0 <= xs && xs < outH) && (0 <= ys && ys < outW))
+			if ((0 <= xs && xs < outH) && (0 <= ys && ys <= outW))
 				outImage[xd][yd] = tmpImage[xs][ys];
 		}
 	}
@@ -1168,7 +1168,7 @@ void rotateZoomInBilinear() { // 회전 알고리즘 + 확대/양선형
 			xs += cx;
 			ys += cy;
 
-			if ((0 <= xs && xs < outH) && (0 <= ys && ys < outW))
+			if ((0 <= xs && xs < outH) && (0 <= ys && ys <= outW))
 				outImage[xd][yd] = tmpImage[xs][ys];
 		}
 	}
@@ -1608,8 +1608,8 @@ void blur() { // 화소 영역 처리 : 블러링 알고리즘(3x3)
 	// 화소 영역 처리
 	//////////////////
 
-	double mask[3][3] = { { 1.0 / 9, 1.0 / 9, 1.0 / 9 },
-		{ 1.0 / 9, 1.0 / 9, 1.0 / 9 },
+	double mask[3][3] = { { 1.0 / 9, 1.0 / 9, 1.0 / 9 }, 
+		{ 1.0 / 9, 1.0 / 9, 1.0 / 9 }, 
 		{ 1.0 / 9, 1.0 / 9, 1.0 / 9 } }; // 블러링 마스크
 
 	// 임시 메모리 할당 (실수형)
@@ -1813,7 +1813,7 @@ void sharpHf() { // 화소 영역 처리 : 고주파 샤프닝 알고리즘
 	//////////////////
 
 	double mask[3][3] = { { -1.0 / 9, -1.0 / 9, -1.0 / 9 },
-		{ -1.0 / 9, 8.0 / 9, -1.0 / 9 },
+		{ -1.0 / 9, 8.0 / 9, -1.0 / 9 }, 
 		{ -1.0 / 9, -1.0 / 9, -1.0 / 9 } }; // 고주파 샤프닝 마스크
 
 	// 임시 메모리 할당 (실수형)
@@ -1882,8 +1882,8 @@ void sharpLf() {
 
 	int alpha = getIntValue();
 
-	double mask[3][3] = { { 1.0 / 9, 1.0 / 9, 1.0 / 9 },
-		{ 1.0 / 9, 1.0 / 9, 1.0 / 9 },
+	double mask[3][3] = { { 1.0 / 9, 1.0 / 9, 1.0 / 9 }, 
+		{ 1.0 / 9, 1.0 / 9, 1.0 / 9 }, 
 		{ 1.0 / 9, 1.0 / 9, 1.0 / 9 } }; // 저주파 샤프닝 마스크
 
 	// 임시 메모리 할당 (실수형)
@@ -1953,8 +1953,8 @@ void gaussian() { // 화소 영역 처리 : 가우시안 알고리즘
 	// 화소 영역 처리
 	//////////////////
 
-	double mask[3][3] = { { 1.0 / 16, 1.0 / 8, 1.0 / 16 },
-		{ 1.0 / 8, 1.0 / 4, 1.0 / 8 },
+	double mask[3][3] = { { 1.0 / 16, 1.0 / 8, 1.0 / 16 }, 
+		{ 1.0 / 8, 1.0 / 4, 1.0 / 8 }, 
 		{ 1.0 / 16, 1.0 / 8, 1.0 / 16 } }; // 가우시안 마스크
 
 	// 임시 메모리 할당 (실수형)
@@ -2020,8 +2020,8 @@ void edgeVer() { // 경계선 알고리즘 + 수직
 	// 화소 영역 처리
 	//////////////////
 
-	double mask[3][3] = { { 0.0, 0.0, 0.0 },
-		{ -1.0, 1.0, 0.0 },
+	double mask[3][3] = { { 0.0, 0.0, 0.0 }, 
+		{ -1.0, 1.0, 0.0 }, 
 		{ 0.0, 0.0, 0.0 } }; // 수직 에지 검출 마스크
 
 	// 임시 메모리 할당 (실수형)
@@ -2087,8 +2087,8 @@ void edgeHor() { // 경계선 알고리즘 + 수평
 	// 화소 영역 처리
 	//////////////////
 
-	double mask[3][3] = { { 0.0, -1.0, 0.0 },
-		{ 0.0, 1.0, 0.0 },
+	double mask[3][3] = { { 0.0, -1.0, 0.0 }, 
+		{ 0.0, 1.0, 0.0 }, 
 		{ 0.0, 0.0, 0.0 } }; // 수평 에지 검출 마스크
 
 	// 임시 메모리 할당 (실수형)
@@ -2173,7 +2173,7 @@ void edgeHomogen() { // 경계선 알고리즘 + 유사 연산자
 
 	for (int i = 0; i < inH; i++) {
 		for (int j = 0; j < inW; j++) {
-			S = 0, 0;
+			S = 0.0;
 
 			for (int m = 0; m < 3; m++) {
 				for (int n = 0; n < 3; n++) {
@@ -2241,8 +2241,8 @@ void edgeDiff() { // 경계선 알고리즘 + 차 연산자
 			S = 0, 0;
 
 			for (int n = 0; n < 3; n++) {
-				if (S < fabs(tmpInImage[i][j + n] - tmpInImage[i + 2][j + -n + 2]))
-					S = fabs(tmpInImage[i][j + n] - tmpInImage[i + 2][j + -n + 2]);
+				if (S < fabs(tmpInImage[i][j + n] - tmpInImage[i + 2][j + - n + 2]))
+					S = fabs(tmpInImage[i][j + n] - tmpInImage[i + 2][j + - n + 2]);
 			}
 
 			if (S < fabs(tmpInImage[i + 1][j + 2] - tmpInImage[i + 1][j]))
@@ -2286,10 +2286,10 @@ void edgeRoberts() { // 경계선 1차 미분 알고리즘 + 로버츠
 	//////////////////
 
 	double maskRow[3][3] = { { -1.0, 0.0, 0.0 },
-		{ 0.0, 1.0, 0.0 },
+		{ 0.0, 1.0, 0.0 }, 
 		{ 0.0, 0.0, 0.0 } }; // 로버츠 행 에지 검출 마스크
-	double maskCol[3][3] = { { 0.0, 0.0, -1.0 },
-		{ 0.0, 1.0, 0.0 },
+	double maskCol[3][3] = { { 0.0, 0.0, -1.0 }, 
+		{ 0.0, 1.0, 0.0 }, 
 		{ 0.0, 0.0, 0.0 } }; // 로버츠 열 에지 검출 마스크
 
 	// 임시 메모리 할당 (실수형)
@@ -2334,7 +2334,7 @@ void edgeRoberts() { // 경계선 1차 미분 알고리즘 + 로버츠
 			S1 = tmpRowOutImage[i][j];
 			S2 = tmpColOutImage[i][j];
 
-			if (sqrt((double)(S1 * S1 + S2 * S2)) < 0.0)
+			if (sqrt((double) (S1 * S1 + S2 * S2)) < 0.0)
 				outImage[i][j] = 0;
 			else if (255.0 < sqrt((double)(S1 * S1 + S2 * S2)))
 				outImage[i][j] = 255;
@@ -2366,11 +2366,11 @@ void edgePrewitt() { // 경계선 1차 미분 알고리즘 + 프리윗
 	// 화소 영역 처리
 	//////////////////
 
-	double maskRow[3][3] = { { -1.0, -1.0, -1.0 },
-		{ 0.0, 0.0, 0.0 },
+	double maskRow[3][3] = { { -1.0, -1.0, -1.0 }, 
+		{ 0.0, 0.0, 0.0 }, 
 		{ 1.0, 1.0, 1.0 } }; // 프리윗 행 에지 검출 마스크
-	double maskCol[3][3] = { { 1.0, 0.0, -1.0 },
-		{ 1.0, 0.0, -1.0 },
+	double maskCol[3][3] = { { 1.0, 0.0, -1.0 }, 
+		{ 1.0, 0.0, -1.0 }, 
 		{ 1.0, 0.0, -1.0 } }; // 프리윗 열 에지 검출 마스크
 
 	// 임시 메모리 할당 (실수형)
@@ -2447,11 +2447,11 @@ void edgeSobel() { // 경계선 1차 미분 알고리즘 + 소벨
 	// 화소 영역 처리
 	//////////////////
 
-	double maskRow[3][3] = { { -1.0, -2.0, -1.0 },
-		{ 0.0, 0.0, 0.0 },
+	double maskRow[3][3] = { { -1.0, -2.0, -1.0 }, 
+		{ 0.0, 0.0, 0.0 }, 
 		{ 1.0, 2.0, 1.0 } }; // 소벨 행 에지 검출 마스크
-	double maskCol[3][3] = { { 1.0, 0.0, -1.0 },
-		{ 2.0, 0.0, -2.0 },
+	double maskCol[3][3] = { { 1.0, 0.0, -1.0 }, 
+		{ 2.0, 0.0, -2.0 }, 
 		{ 1.0, 0.0, -1.0 } }; // 소벨 열 에지 검출 마스크
 
 	// 임시 메모리 할당 (실수형)
@@ -2528,8 +2528,8 @@ void edgeLaplacian() { // 경계선 2차 미분 알고리즘 + 라플라시안
 	// 화소 영역 처리
 	//////////////////
 
-	double mask[3][3] = { { 0.0, -1.0, 0.0 },
-		{ -1.0, 4.0, -1.0 },
+	double mask[3][3] = { { 0.0, -1.0, 0.0 }, 
+		{ -1.0, 4.0, -1.0 }, 
 		{ 0.0, -1.0, 0.0 } }; // 라플라시안 에지 검출 마스크
 
 	// 임시 메모리 할당 (실수형)
@@ -2595,10 +2595,10 @@ void edgeLoG() { // 경계선 2차 미분 알고리즘 + LoG
 	// 화소 영역 처리
 	//////////////////
 
-	double mask[5][5] = { { 0.0, 0.0, -1.0, 0.0, 0.0 },
+	double mask[5][5] = { { 0.0, 0.0, -1.0, 0.0, 0.0 }, 
 		{ 0.0, -1.0, -2.0, -1.0, 0.0 },
-		{ -1.0, -2.0, 16.0, -2.0, -1.0 },
-		{ 0.0, -1.0, -2.0, -1.0, 0.0 },
+		{ -1.0, -2.0, 16.0, -2.0, -1.0 }, 
+		{ 0.0, -1.0, -2.0, -1.0, 0.0 }, 
 		{ 0.0, 0.0, -1.0, 0.0, 0.0 } }; // LoG 에지 검출 마스크
 
 	// 임시 메모리 할당 (실수형)
@@ -2664,12 +2664,12 @@ void edgeDog() {  // 경계선 2차 미분 알고리즘 + DoG
 	// 화소 영역 처리
 	//////////////////
 
-	double mask[7][7] = { { 0.0, 0.0, -1.0, -1.0, -1.0, 0.0, 0.0 },
-		{ 0.0, -2.0, -3.0, -3.0, -3.0, -2.0, 0.0 },
+	double mask[7][7] = { { 0.0, 0.0, -1.0, -1.0, -1.0, 0.0, 0.0 }, 
+		{ 0.0, -2.0, -3.0, -3.0, -3.0, -2.0, 0.0 }, 
 		{ -1.0, -3.0, 5.0, 5.0, 5.0, -3.0, -1.0 },
-		{ -1.0, -3.0, 5.0, 16.0, 5.0, -3.0, -1.0 },
-		{ -1.0, -3.0, 5.0, 5.0, 5.0, -3.0, -1.0 },
-		{ 0.0, -2.0, -3.0, -3.0, -3.0, -2.0, 0.0 },
+		{ -1.0, -3.0, 5.0, 16.0, 5.0, -3.0, -1.0 }, 
+		{ -1.0, -3.0, 5.0, 5.0, 5.0, -3.0, -1.0 }, 
+		{ 0.0, -2.0, -3.0, -3.0, -3.0, -2.0, 0.0 }, 
 		{ 0.0, 0.0, -1.0, -1.0, -1.0, 0.0, 0.0 } }; // DoG 에지 검출 마스크
 
 	// 임시 메모리 할당 (실수형)
