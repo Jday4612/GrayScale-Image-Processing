@@ -185,6 +185,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ColorDlg.h" />
+    <ClInclude Include="ConstantSaturDlg.h" />
     <ClInclude Include="ImageProcessing.h" />
     <ClInclude Include="ImageProcessingDoc.h" />
     <ClInclude Include="ImageProcessingView.h" />
@@ -204,6 +205,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorDlg.cpp" />
+    <ClCompile Include="ConstantSaturDlg.cpp" />
     <ClCompile Include="ImageProcessing.cpp" />
     <ClCompile Include="ImageProcessingDoc.cpp" />
     <ClCompile Include="ImageProcessingView.cpp" />

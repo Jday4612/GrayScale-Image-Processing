@@ -23,6 +23,7 @@
 #include "ConstantDegreeDlg.h"
 #include "ConstantScaleDegreeDlg.h"
 #include "ConstantHeightWidthDlg.h"
+#include "ConstantSaturDlg.h"
 #include "ColorDlg.h"
 
 #ifdef _DEBUG
@@ -4264,46 +4265,51 @@ void CImageProcessingDoc::OnEdgeDogImage()
 void CImageProcessingDoc::OnChangeSatur()
 {
 	// TODO: 여기에 구현 코드 추가.
-	// 기존 메모리 해제
-	OnFreeOutImage();
-	// 중요! 출력 이미지 크기 결정 --> 알고리즘에 따름...
-	m_outH = m_inH;
-	m_outW = m_inW;
-	// 메모리 할당
-	m_outImageR = OnMalloc2D(m_outH, m_outW);
-	m_outImageG = OnMalloc2D(m_outH, m_outW);
-	m_outImageB = OnMalloc2D(m_outH, m_outW);
-	// ** 진짜 영상처리 알고리즘 **
-	for (int i = 0; i < m_inH; i++) {
-		for (int j = 0; j < m_inW; j++) {
-			// HSI 모델 값
-			// H(색상) : 0 ~ 360
-			// S(채도) : 0.0 ~ 1.0
-			// I(명도) : 0 ~ 255
+	CConstantSaturDlg dlg;
+	if (dlg.DoModal() != IDCANCEL) {
+		// 기존 메모리 해제
+		OnFreeOutImage();
+		// 중요! 출력 이미지 크기 결정 --> 알고리즘에 따름...
+		m_outH = m_inH;
+		m_outW = m_inW;
+		// 메모리 할당
+		m_outImageR = OnMalloc2D(m_outH, m_outW);
+		m_outImageG = OnMalloc2D(m_outH, m_outW);
+		m_outImageB = OnMalloc2D(m_outH, m_outW);
+		// ** 진짜 영상처리 알고리즘 **
+		for (int i = 0; i < m_inH; i++) {
+			for (int j = 0; j < m_inW; j++) {
+				// HSI 모델 값
+				// H(색상) : 0 ~ 360
+				// S(채도) : 0.0 ~ 1.0
+				// I(명도) : 0 ~ 255
 
-			// RGB --> HSI
-			double H, S, I;
-			unsigned char R, G, B;
+				// RGB --> HSI
+				double H, S, I;
+				unsigned char R, G, B;
 
-			R = m_inImageR[i][j];
-			G = m_inImageG[i][j];
-			B = m_inImageB[i][j];
+				R = m_inImageR[i][j];
+				G = m_inImageG[i][j];
+				B = m_inImageB[i][j];
 
-			double* hsi = RGB2HSI(R, G, B);
-			H = hsi[0]; S = hsi[1]; I = hsi[2];
+				double* hsi = RGB2HSI(R, G, B);
+				H = hsi[0]; S = hsi[1]; I = hsi[2];
 
-			// 채도(S) 흐리게
-			S -= 0.2;
-			if (S < 0)
-				S = 0.0;
+				// 채도(S) 변경
+				S += dlg.m_constantSatur;
+				if (S < 0.0)
+					S = 0.0;
+				else if (1.0 < S)
+					S = 1.0;
 
-			// HSI --> RGB
-			unsigned char* rgb = HSI2RGB(H, S, I);
-			R = rgb[0], G = rgb[1], B = rgb[2];
+				// HSI --> RGB
+				unsigned char* rgb = HSI2RGB(H, S, I);
+				R = rgb[0], G = rgb[1], B = rgb[2];
 
-			m_outImageR[i][j] = R;
-			m_outImageG[i][j] = G;
-			m_outImageB[i][j] = B;
+				m_outImageR[i][j] = R;
+				m_outImageG[i][j] = G;
+				m_outImageB[i][j] = B;
+			}
 		}
 	}
 }
@@ -4452,7 +4458,7 @@ void CImageProcessingDoc::OnPick()
 					}
 				}
 				else {
-					// 오렌지 추출 (H : 8 ~ 20)
+					// 색 추출
 					if (colorStart <= H && H <= colorEnd) {
 						m_outImageR[i][j] = m_inImageR[i][j];
 						m_outImageG[i][j] = m_inImageG[i][j];

@@ -5,9 +5,7 @@
 #define IDD_ABOUTBOX                    100
 #define IDP_OLE_INIT_FAILED             100
 #define IDR_MAINFRAME                   128
-#define IDR_ImageProcessingTYPE    130
-#define IDD_DIALOG1                     310
-#define IDD_CONSTANTDLG                 310
+#define IDR_ImageProcessingTYPE         130
 #define IDD_CONSTANT                    310
 #define IDD_CONSTANT_DEC                311
 #define IDD_CONSTANT_BIT                312
@@ -18,6 +16,8 @@
 #define IDD_CONSTANT_SCALE_DEGREE       316
 #define IDD_CONSTANT_HEIGHT_WIDTH       317
 #define IDD_COLOR                       318
+#define IDD_CONSTANT2                   319
+#define IDD_CONSTANT_SATUR              319
 #define IDC_EDIT_CONSTANT               1000
 #define IDC_EDIT_CONSTANT_DEC           1001
 #define IDC_EDIT_CONSTANT_END           1001
@@ -35,6 +35,8 @@
 #define IDC_COLOR_BLUE                  1013
 #define IDC_BUTTON6                     1014
 #define IDC_COLOR_PURPLE                1014
+#define IDC_SLIDER2                     1030
+#define IDC_EDIT_CONSTANT_SATUR         1034
 #define ID_32771                        32771
 #define ID                              32772
 #define IDM_EQUAL_IMAGE                 32773
@@ -66,7 +68,6 @@
 #define ID_32799                        32799
 #define ID_32800                        32800
 #define ID_32801                        32801
-#define ID_ADD_IMAGE                    32802
 #define IDM_ADD_IMAGE                   32803
 #define IDM_MUL_IMAGE                   32804
 #define ID_32805                        32805
@@ -86,7 +87,6 @@
 #define ID_32819                        32819
 #define ID_32820                        32820
 #define ID_32821                        32821
-#define IDM_BE_IMAGE                    32822
 #define IDM_BW_IMAGE                    32823
 #define IDM_BW_AVG_IMAGE                32824
 #define IDM_BW_MED_IMAGE                32825
@@ -106,7 +106,6 @@
 #define IDM_ZOOM_IN_IMAGE               32839
 #define IDM_ZOOM_IN1_IMAGE              32840
 #define IDM_ZOOM_IN2_IMAGE              32841
-#define IDM_ZOOM_IN__IMAGE              32842
 #define IDM_ZOOM_IN_BILINEAR_IMAGE      32843
 #define ID_32844                        32844
 #define ID_32845                        32845
@@ -115,7 +114,6 @@
 #define IDM_ROTATE1_IMAGE               32848
 #define IDM_ROTATE2_IMAGE               32849
 #define IDM_ROTATE_ZOOM_IN_IMAGE        32850
-#define IDM_ROTATE__IMAGE               32851
 #define IDM_ROTATE_ZOOM_IN_BILINEAR_IMAGE 32852
 #define ID_32853                        32853
 #define ID_32854                        32854
@@ -139,7 +137,6 @@
 #define ID_32872                        32872
 #define ID_32873                        32873
 #define ID_32874                        32874
-#define IDM_SHARF_IMAGE                 32875
 #define IDM_SHARP_IMAGE                 32876
 #define IDM_SHARP_HF_IMAGE              32877
 #define IDM_SHARP_LF_IMAGE              32878
@@ -159,7 +156,6 @@
 #define ID_2                            32892
 #define ID_3                            32893
 #define ID_4                            32894
-#define IDM_EDGE__IMAGE                 32895
 #define IDM_EDGE_ROBERTS_IMAGE          32896
 #define IDM_EDGE_PREWITT_IMAGE          32897
 #define IDM_EDGE_SOBEL_IMAGE            32898
@@ -176,7 +172,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        320
 #define _APS_NEXT_COMMAND_VALUE         32906
-#define _APS_NEXT_CONTROL_VALUE         1011
+#define _APS_NEXT_CONTROL_VALUE         1035
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif
